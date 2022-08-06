@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base :: head(~{::title})">
+    <title>Todo List</title>
+</head>
+
+<body th:replace="base :: body(~{::h1}, ~{::section})">
+<h1>ToDo List</h1>
+
+<section>
+    <!-- Item Input Form -->
+    <div class="todoForm">
+        <form class="form-horizontal" role="form" th:action="@{/add}" th:object="${newitem}" method="POST">
+            <div class="form-group">
+                <label for="inputItemValue" class="col-sm-2">Task To Do</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{item_value}" class="form-control" id="inputItemValue"
+                           placeholder="Enter Value"/>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Task</button>
+
+        </form>
+    </div>
+
+    <hr/>
+
+    <div class="todoList">
+        <form class="form-horizontal" role="form" th:action="@{/update}" th:object="${items}" method="POST">
+            <table class="table table-bordered table-striped" id="todoItems">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Created Date</th>
+                    <th>Last Updated Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,i : *{todoList}">
+                    <input type="hidden" th:field="*{todoList[__${i.index}__].id}"/>
+                    <td><input type="text" th:field="*{todoList[__${i.index}__].item_value}"/></td>
+                    <td th:text="${item.created_date}">created_date</td>
+                    <td th:text="${item.updated_date}">updated_date</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Update Button -->
+            <button type="submit" class="btn btn-primary">Update Tasks</button>
+        </form>
+    </div>
+
+    <hr/>
+    <div class="todoList">
+        <form class="form-horizontal" role="form" th:action="@{/delete}" th:object="${items}" method="POST">
+            <table class="table table-bordered table-striped" id="todoItems">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Delete Item</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,i : *{todoList}">
+                    <input type="hidden" th:field="*{todoList[__${i.index}__].id}"/>
+                    <td><input type="text" disabled th:field="*{todoList[__${i.index}__].item_value}"/></td>
+                    <td><input type="checkbox" th:field="*{todoList[__${i.index}__].delete_item}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Delete Button -->
+            <button type="submit" class="btn btn-primary">Delete Tasks</button>
+        </form>
+    </div>
+
+
+</section>
+
+</body>
+
+</html>
