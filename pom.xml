@@ -100,7 +100,7 @@
                         <configuration>
                             <classifier>spring-boot</classifier>
                             <mainClass>
-                                com.baeldung.executable.ExecutableMavenJar
+                                com.kamalium.todo.AppRunner
                             </mainClass>
                         </configuration>
                     </execution>
