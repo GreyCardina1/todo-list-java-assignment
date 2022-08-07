@@ -49,8 +49,8 @@ public class AppRestController {
     RestResponse deleteItem(@RequestParam long id) {
         Item item = new Item(id);
         item.setId(id);
-        Item saved = repository.save(item);
-        return new RestResponse("Deleted", saved);
+        repository.delete(item);
+        return new RestResponse("Deleted",item);
     }
 
 
